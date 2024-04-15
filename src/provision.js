@@ -53,7 +53,18 @@ const ProvisionDevice = () => {
     // searchDevices();
   }, []);
 
-  console.log('ESP32Provisioning', NativeModules.ESP32Provisioning);
+  // console.log('ESP32Provisioning', NativeModules.ESP32Provisioning);
+
+  const onSuccessfulConnection = device => {
+    console.log('Connected to device:', device);
+    setSelectedDevice(device);
+    setCurrentStage('Scan WiFi Networks');
+  };
+
+  const onFailedConnection = error => {
+    console.error('Failed to connect to device:', error);
+  };
+
   const handleBarCodeRead = async event => {
     let parsedData;
     if (event.nativeEvent.codeStringValue) {
@@ -64,12 +75,24 @@ const ProvisionDevice = () => {
       setHostSsid(parsedData?.name);
 
       if (parsedData) {
-        const device = ESP32Provisioning({
-          name: parsedData.name,
-          transport: ESPTransport.softap,
-          security: ESPSecurity.secure,
-        });
-        // connectToSemiHotspot(device)
+        await ESP32Provisioning.createESPDevice(
+          parsedData.name,
+          ESPTransport.softap,
+          ESPSecurity.secure,
+          parsedData.pop,
+          null,
+          null,
+        )
+          .then(data => {
+            console.log('Device Created: ', data);
+            setDevice(data);
+            setCurrentStage('Connect to Semi Hotspot');
+          })
+          .catch(err => {
+            console.log('Device Creation Failed: ', err);
+          });
+
+        connectToSemiHotspot(device);
         console.log(device, 'converted device ', parsedData);
         setDevice(device);
         setCurrentStage('Connect to Semi Hotspot');
@@ -79,7 +102,7 @@ const ProvisionDevice = () => {
     }
   };
 
-  const connectToDevice = async device => {
+  const connectToSemiHotspot = async device => {
     // for (let step = 0; step < 1000; step++) {
     // Runs 5 times, with values of step 0 through 4.
     device.connect(pop, null, '').then(

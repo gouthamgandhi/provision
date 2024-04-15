@@ -7,6 +7,7 @@
 
 import Foundation
 import ESPProvision
+import React
 
 @objc(ESP32Provisioning)
 class ESP32Provisioning: NSObject {
@@ -59,10 +60,14 @@ class ESP32Provisioning: NSObject {
         let transport = ESPTransport(rawValue: transport) ?? ESPTransport.ble
         let security = ESPSecurity(rawValue: security)
 
+        NSLog("Creating ESP device with name: \(deviceName)")
+        NSLog("Transport: \(transport)")
+
         ESPProvisionManager.shared.createESPDevice(deviceName: deviceName, transport: transport, security: security, proofOfPossession: proofOfPossession
             , softAPPassword: softAPPassword, username: username) { espDevice, error in
             // Prevent multiple callback invokation error
             if error != nil {
+                NSLog("Error creating ESP device: \(error?.description ?? "Unknown error")")
                 reject("error", error?.description, nil)
                 return
             }
@@ -80,58 +85,58 @@ class ESP32Provisioning: NSObject {
 
     }
 
-    @objc(provisionDevice:pop:softAPPassword:resolve:reject:)
-    func provisionDevice(deviceName: String, pop: String, softAPPassword: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-        ESPProvisionManager.shared.provisionDevice(deviceName: deviceName, pop: pop, softAPPassword: softAPPassword) { espDevice, error in
-            if error != nil {
-                reject("error", error?.description, nil)
-                return
-            }
+    // @objc(provisionDevice:pop:softAPPassword:resolve:reject:)
+    // func provisionDevice(deviceName: String, pop: String, softAPPassword: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    //     ESPProvisionManager.shared.provisionDevice(deviceName: deviceName, pop: pop, softAPPassword: softAPPassword) { espDevice, error in
+    //         if error != nil {
+    //             reject("error", error?.description, nil)
+    //             return
+    //         }
 
-            resolve([
-                "name": espDevice?.name,
-                "advertisementData": espDevice?.advertisementData ?? [],
-                "capabilities": espDevice?.capabilities ?? [],
-                "security": espDevice?.security.rawValue,
-                "transport": espDevice?.transport.rawValue,
-                "username": espDevice?.username as Any,
-                "versionInfo": espDevice?.versionInfo ?? {}
-            ])
-        }
-    }
+    //         resolve([
+    //             "name": espDevice?.name,
+    //             "advertisementData": espDevice?.advertisementData ?? [],
+    //             "capabilities": espDevice?.capabilities ?? [],
+    //             "security": espDevice?.security.rawValue,
+    //             "transport": espDevice?.transport.rawValue,
+    //             "username": espDevice?.username as Any,
+    //             "versionInfo": espDevice?.versionInfo ?? {}
+    //         ])
+    //     }
+    // }
 
-    @objc(getDeviceStatus:resolve:reject:)
-    func getDeviceStatus(deviceName: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-        ESPProvisionManager.shared.getDeviceStatus(deviceName: deviceName) { status, error in
-            if error != nil {
-                reject("error", error?.description, nil)
-                return
-            }
+    // @objc(getDeviceStatus:resolve:reject:)
+    // func getDeviceStatus(deviceName: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    //     ESPProvisionManager.shared.getDeviceStatus(deviceName: deviceName) { status, error in
+    //         if error != nil {
+    //             reject("error", error?.description, nil)
+    //             return
+    //         }
 
-            resolve([
-                "status": status.rawValue
-            ])
-        }
-    }
+    //         resolve([
+    //             "status": status.rawValue
+    //         ])
+    //     }
+    // }
 
-    @objc(getWiFiList:resolve:reject:)
-    func getWiFiList(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
-        ESPProvisionManager.shared.getWiFiList { wifiList, error in
-            if error != nil {
-                reject("error", error?.description, nil)
-                return
-            }
+    // @objc(getWiFiList:resolve:reject:)
+    // func getWiFiList(deviceName: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    //     ESPProvisionManager.shared.getWiFiList { wifiList, error in
+    //         if error != nil {
+    //             reject("error", error?.description, nil)
+    //             return
+    //         }
 
-            resolve(wifiList!.map {[
-                "ssid": $0.ssid,
-                "rssi": $0.rssi,
-                "auth": $0.auth.rawValue,
-                "channel": $0.channel,
-                "hidden": $0.isHidden,
-                "bssid": $0.bssid
-            ]})
-        }
-    }
+    //         resolve(wifiList!.map {[
+    //             "ssid": $0.ssid,
+    //             "rssi": $0.rssi,
+    //             "auth": $0.auth.rawValue,
+    //             "channel": $0.channel,
+    //             "hidden": $0.isHidden,
+    //             "bssid": $0.bssid
+    //         ]})
+    //     }
+    // }
 
     @objc(provision:ssid:passphrase:resolve:reject:)
     func provision(deviceName: String, ssid: String, passphrase: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {

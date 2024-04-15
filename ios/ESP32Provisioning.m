@@ -9,7 +9,7 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(ESP32Provisioning, RCTEventEmitter)
+@interface RCT_EXTERN_MODULE(ESP32Provisioning, NSObject)
 
     RCT_EXTERN_METHOD(searchESPDevices:(NSString *)devicePrefix
                       transport:(NSString *)location
