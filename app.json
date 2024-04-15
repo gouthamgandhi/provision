@@ -1,0 +1,5 @@
+{
+  "name": "provision",
+  "displayName": "provision",
+  "plugins": ["react-native-wifi-reborn"]
+}
