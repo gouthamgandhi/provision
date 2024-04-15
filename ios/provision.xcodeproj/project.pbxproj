@@ -11,6 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		174E49802BCD493C00AC875C /* ESP32IdfProvisioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E497F2BCD493C00AC875C /* ESP32IdfProvisioning.swift */; };
+		174E49822BCD496900AC875C /* ESP32IdfProvisioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 174E49812BCD496900AC875C /* ESP32IdfProvisioning.m */; };
 		175F45792BCA483900B58788 /* libESPProvision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 175F45782BCA483900B58788 /* libESPProvision.a */; };
 		175F457C2BCABDDF00B58788 /* ESP32Provisioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175F457B2BCABDDF00B58788 /* ESP32Provisioning.swift */; };
 		175F457E2BCABE0400B58788 /* ESP32Provisioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F457D2BCABE0400B58788 /* ESP32Provisioning.m */; };
@@ -39,6 +41,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = provision/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = provision/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = provision/main.m; sourceTree = "<group>"; };
+		174E497F2BCD493C00AC875C /* ESP32IdfProvisioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESP32IdfProvisioning.swift; sourceTree = "<group>"; };
+		174E49812BCD496900AC875C /* ESP32IdfProvisioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESP32IdfProvisioning.m; sourceTree = "<group>"; };
 		175F45782BCA483900B58788 /* libESPProvision.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libESPProvision.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		175F457A2BCABDDE00B58788 /* provision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provision-Bridging-Header.h"; sourceTree = "<group>"; };
 		175F457B2BCABDDF00B58788 /* ESP32Provisioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESP32Provisioning.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		13B07FAE1A68108700A75B9A /* provision */ = {
 			isa = PBXGroup;
 			children = (
+				174E497F2BCD493C00AC875C /* ESP32IdfProvisioning.swift */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -103,6 +108,7 @@
 				175F457B2BCABDDF00B58788 /* ESP32Provisioning.swift */,
 				175F457D2BCABE0400B58788 /* ESP32Provisioning.m */,
 				175F457A2BCABDDE00B58788 /* provision-Bridging-Header.h */,
+				174E49812BCD496900AC875C /* ESP32IdfProvisioning.m */,
 			);
 			name = provision;
 			sourceTree = "<group>";
@@ -404,9 +410,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				174E49802BCD493C00AC875C /* ESP32IdfProvisioning.swift in Sources */,
 				175F457C2BCABDDF00B58788 /* ESP32Provisioning.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				175F457E2BCABE0400B58788 /* ESP32Provisioning.m in Sources */,
+				174E49822BCD496900AC875C /* ESP32IdfProvisioning.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -604,10 +612,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -675,10 +680,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

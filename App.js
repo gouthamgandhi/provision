@@ -23,8 +23,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import Provision from './src/provision';
 import ProvisionDevice from './src/provision';
+import ProvisionDeviceFTLabs from './src/provision-ftlabs';
 
 function Section({children, title}) {
   const isDarkMode = useColorScheme() === 'dark';
@@ -62,7 +62,8 @@ function App() {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <ProvisionDevice />
+      {/* <ProvisionDevice /> */}
+      <ProvisionDeviceFTLabs />
     </SafeAreaView>
   );
 }

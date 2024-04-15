@@ -1,5 +1,5 @@
 //
-//  ESP32Provisioning.m
+// Orbital Systems Implementation
 //  provision
 //
 //  Created by Goutham Gandhi Nadendla on 13/04/24.
@@ -9,7 +9,7 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(ESP32Provisioning, NSObject)
+@interface RCT_EXTERN_MODULE(ESP32Provisioning, RCTEventEmitter)
 
     RCT_EXTERN_METHOD(searchESPDevices:(NSString *)devicePrefix
                       transport:(NSString *)location

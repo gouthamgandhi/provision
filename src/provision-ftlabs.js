@@ -1,6 +1,7 @@
+// FTLabs Provisioning
 // Provisioning Sequence
 // 1. Scan QR Code
-// 2. Connect to Semi Hotspot
+// 2. Connect to Semi Hotspot : CreateESP Device -> Connect to Semi Hotspot
 // 3. Scan WiFi Networks
 // 4. Provision Device
 // 5. Connect to WiFi Network
@@ -20,9 +21,9 @@ import {Camera, CameraType} from 'react-native-camera-kit';
 
 // import WifiManager from 'react-native-wifi-reborn';
 
-const {ESP32Provisioning} = NativeModules;
+const {ESP32IdfProvisioning} = NativeModules;
 
-const ProvisionDevice = () => {
+const ProvisionDeviceFTLabs = () => {
   const [device, setDevice] = useState(null);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
@@ -55,7 +56,7 @@ const ProvisionDevice = () => {
     // searchDevices();
   }, []);
 
-  // console.log('ESP32Provisioning', NativeModules.ESP32Provisioning);
+  console.log('ESP32IdfProvisioning', NativeModules.ESP32IdfProvisioning);
 
   const onSuccessfulConnection = device => {
     console.log('Connected to device:', device);
@@ -77,7 +78,7 @@ const ProvisionDevice = () => {
       setHostSsid(parsedData?.name);
 
       if (parsedData) {
-        await ESP32Provisioning.createESPDevice(
+        await ESP32IdfProvisioning.createESPDevice(
           parsedData.name,
           ESPTransport.softap,
           ESPSecurity.secure,
@@ -241,4 +242,4 @@ const ProvisionDevice = () => {
   );
 };
 
-export default ProvisionDevice;
+export default ProvisionDeviceFTLabs;

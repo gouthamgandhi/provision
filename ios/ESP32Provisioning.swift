@@ -1,9 +1,4 @@
-//
-//  ESP32Provisioning.swift
-//  provision
-//
-//  Created by Goutham Gandhi Nadendla on 13/04/24.
-//
+// Orbital Systems Implementation
 
 import Foundation
 import ESPProvision
